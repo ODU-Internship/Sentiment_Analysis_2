@@ -30,11 +30,11 @@ lstm_out = 196
 max_fatures = 2000
 
 
-def process_emails(text_list,col=col,df=df):
+def process_emails(text_list, col=col, df=df):
     df['emails'] = text_list
     df_sub = convert_lower(df, col)
     df_sub = remove_special(df, col)
-    #remove stop words -
+    # remove stop words -
     tokenizer = Tokenizer(num_words=max_fatures, split=' ')
     tokenizer.fit_on_texts(df[col].values)
     X = tokenizer.texts_to_sequences(df[col].values)
@@ -42,40 +42,42 @@ def process_emails(text_list,col=col,df=df):
     return X
 
 
-def make_model(embed_dim = embed_dim,lstm_out = lstm_out):
-  model = Sequential()
-  model.add(Embedding(max_fatures, embed_dim,input_length = 128))
-  model.add(SpatialDropout1D(0.4))
-  model.add(LSTM(lstm_out, dropout=0.2, recurrent_dropout=0.2))
-  model.add(Dense(2,activation='softmax'))
-  model.compile(loss = 'categorical_crossentropy', optimizer='adam',metrics = ['accuracy'])
-  #print(model.summary())
-  return model
+def make_model(embed_dim=embed_dim, lstm_out=lstm_out):
+    model = Sequential()
+    model.add(Embedding(max_fatures, embed_dim, input_length=128))
+    model.add(SpatialDropout1D(0.4))
+    model.add(LSTM(lstm_out, dropout=0.2, recurrent_dropout=0.2))
+    model.add(Dense(2, activation='softmax'))
+    model.compile(loss='categorical_crossentropy',
+                  optimizer='adam', metrics=['accuracy'])
+    # print(model.summary())
+    return model
+
 
 model2 = make_model()
-checkpoint_filepath = 'trained_weights/'
+checkpoint_filepath = 'trainedWeights/'
 model2.load_weights(checkpoint_filepath)
 
+
 def get_predictions(X, model2=model2):
-    predictions = model2.predict(X,batch_size = X.shape[0])
-    #print(predictions)
+    predictions = model2.predict(X, batch_size=X.shape[0])
+    # print(predictions)
     preds = np.array(predictions)
     probs = np.max(preds, axis=1)*100
-    probs =[str(round(i,2)) for i in probs]
-    #print(probs)
+    probs = [str(round(i, 2)) for i in probs]
+    # print(probs)
     preds = np.argmax(preds, axis=1)
-    #print(preds)
-    sentiment_map = {1:'Positive', 0:'Negative - needs attention'}
+    # print(preds)
+    sentiment_map = {1: 'Positive', 0: 'Negative - needs attention'}
     senti_preds = [sentiment_map[i] for i in preds]
-    #print(senti_preds)
-    result = {'probability':probs, 'sentiment':senti_preds}
-    #print(result)
+    # print(senti_preds)
+    result = {'probability': probs, 'sentiment': senti_preds}
+    # print(result)
     return result
 
 
 app = Flask(__name__)
 api = Api(app)
-
 
 
 class Messages(Resource):
@@ -84,12 +86,13 @@ class Messages(Resource):
 
     def put(self):
         #text_list= request.get_json()['emails']
-        text_list= request.json
+        text_list = request.json
         text_list = text_list['emails']
-        #print(text_list)
+        # print(text_list)
         X = process_emails(text_list)
         result = get_predictions(X)
         return result
+
 
 api.add_resource(Messages, '/predict')
 
