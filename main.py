@@ -85,5 +85,4 @@ class Messages(Resource):
 
 api.add_resource(Messages, '/predict')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+

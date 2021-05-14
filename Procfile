@@ -1,1 +1,1 @@
-web: python model_pred_nb.py
+web: python wsgi.py
