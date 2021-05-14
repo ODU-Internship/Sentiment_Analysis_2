@@ -1,1 +1,1 @@
-web: python model_pred_lstm.py
+web: python model_pred_nb.py
