@@ -61,7 +61,7 @@ class Messages(Resource):
     def get(self):
         return "get request not supported"
 
-    def put(self):
+    def post(self):
         #text_list= request.get_json()['emails']
         text_list= request.json
         text_list = text_list['emails']
