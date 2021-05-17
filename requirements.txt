@@ -4,4 +4,5 @@ pymongo
 pandas
 numpy
 scikit-learn
-gunicorn 
+gunicorn
+dnspython
