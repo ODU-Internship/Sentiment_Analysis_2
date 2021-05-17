@@ -104,7 +104,7 @@ class Messages(Resource):
     def get(self):
         return "get request not supported"
 
-    def put(self):
+    def post(self):
         #text_list= request.get_json()['emails']
         text_list = request.json
         text_list = text_list['emails']
@@ -118,7 +118,7 @@ class Messages_retrain(Resource):
     def get(self):
         return "get request not supported"
 
-    def put(self):
+    def post(self):
 
         df2 = retrain_uploaded()
         print(df2)
@@ -142,7 +142,7 @@ class Messages_replace(Resource):
     def get(self):
         return "get request not supported"
 
-    def put(self):
+    def post(self):
 
         merge_model = request.json
         merge_model_ans = merge_model['merge']

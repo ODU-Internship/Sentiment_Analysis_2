@@ -6,7 +6,7 @@ ex: {'emails':['msg1','msg2']}
 
 * '/retrain' = call to invoke retrain function.
 	2 kinds of retrain available:
-	* based on predicted data whose labels are corrected by supervisor, runs only when more than 10000 such msg collected, and UTC time is 12am - 3am. A post request eeds to be made at this time to invoke and execute.
+	* based on predicted data whose labels are corrected by supervisor, runs only when more than 10000 such msg collected, and UTC time is 12am - 3am. A post request needs to be made at this time to invoke and execute.
 	* using train data uploaded by supervisor - here once supervisor clicks retrain button, api call generated
 
 	returns string consisting of features (accuracy, score, etc) of newly trained model, which can be displayed to supervisor to check model quality.
