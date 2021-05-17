@@ -1,6 +1,7 @@
-Flask_RESTful==0.3.8
-pandas
 Flask==1.1.2
+Flask_RESTful==0.3.8
+pymongo
+pandas
 numpy
 scikit-learn
 gunicorn 
