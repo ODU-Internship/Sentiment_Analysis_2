@@ -13,5 +13,3 @@ ex: {'emails':['msg1','msg2']}
 
 * '/replace' = call to use newly trained model in production
 	pass json data with key="merge" and value = "yes" (to deploy new model)
-  
-  NOTE: The model in models folder needs to be unzipped before invoking API calls
