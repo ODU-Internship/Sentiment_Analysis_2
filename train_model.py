@@ -65,4 +65,4 @@ def retrain(df,target,feature):
     acc = np.mean(predicted == y_test)
     print('Retrain successful')
     pickle.dump(loaded_model, open(new_filename, 'wb'))
-    return(f"Accuracy: {acc} \n",metrics.classification_report(y_test, predicted,target_names=[str(i) for i in list(y.unique())]))
+    return(f"Accuracy: {acc}")#,metrics.classification_report(y_test, predicted,target_names=[str(i) for i in list(y.unique())]))
